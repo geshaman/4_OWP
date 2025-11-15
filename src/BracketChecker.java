@@ -1,22 +1,38 @@
 import java.util.Stack;
 
-public class BracketChecker {
+/**
+ * Класс для проверки корректности расстановки скобок в выражении
+ */
+public abstract class BracketChecker {
     private String _expression;
 
+    /** Статическое поле для хранения истории всех проверенных выражений */
     public final static Stack<BracketChecker> _EXPRESSIONS = new Stack<>();
 
+    /**
+     Конструктор по умолчанию
+     */
     public BracketChecker() {
         this._expression = "";
     }
 
+    /**
+     Конструктор с параметром выражения
+     */
     public BracketChecker(String expression) {
         this._expression = expression;
     }
 
+    /** Геттер для выражения */
     public String getExpression() {
         return this._expression;
     }
 
+    /**
+     * Статический метод для добавления нового выражения в историю
+     * @param expression выражение для проверки
+     * @return сообщение о результате операции
+     */
     public static String pushNewExpression(String expression) {
         if (expression == null || expression.trim().isEmpty())
             return "Выражение не может быть пустым";
@@ -26,6 +42,10 @@ public class BracketChecker {
         return "Выражение успешно добавлено";
     }
 
+    /**
+     * Проверяет корректность расстановки скобок в выражении
+     * @return сообщение о результате проверки
+     */
     public String checkBrackets() {
         Stack<Character> bracketStack = new Stack<>();
 
@@ -35,6 +55,7 @@ public class BracketChecker {
             if (c == '{' || c == '(' || c == '[') {
                 bracketStack.push(c);
             }
+
             else if (c == '}' || c == ')' || c == ']') {
                 if (bracketStack.isEmpty()) {
                     return "Некорректно: закрывающая скобка без открывающей";
@@ -47,31 +68,42 @@ public class BracketChecker {
             }
         }
 
-        if(!bracketStack.isEmpty()) {
+        if (!bracketStack.isEmpty()) {
             return "Некорректно: имеются незакрытые скобки";
         }
 
         return "Строка корректна";
     }
 
+    /**
+     * Проверяет, являются ли скобки парными
+     * @param open открывающая скобка
+     * @param close закрывающая скобка
+     * @return true если скобки парные, false в противном случае
+     */
     private boolean isMatchingPair(char open, char close) {
         return (open == '(' && close == ')') ||
                 (open == '{' && close == '}') ||
                 (open == '[' && close == ']');
     }
 
+    /**
+     * Показывает историю всех проверенных выражений
+     * @return строка с историей проверок
+     */
     public static String showAll() {
         if (_EXPRESSIONS.isEmpty())
             return "История проверок пуста! ";
 
-        StringBuilder sb = new StringBuilder("История проверок: \n\n");
+        StringBuilder sb = new StringBuilder("История проверок: \n");
 
         StackIterator<BracketChecker> iterator = new StackIterator<>(_EXPRESSIONS);
         int counter = 1;
 
-        while (iterator.hasNextElement()) {
-            BracketChecker checker = iterator.nextElement();
+        while (!iterator.empty()) {
+            BracketChecker checker = iterator.pop();
             String result = checker.checkBrackets();
+
             sb.append("Проверка ").append(counter).append(":\n")
                     .append("Выражение: ").append(checker.getExpression())
                     .append("\nРезультат: ").append(result)
