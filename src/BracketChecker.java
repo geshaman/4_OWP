@@ -7,7 +7,7 @@ public abstract class BracketChecker {
     private String _expression;
 
     /** Статическое поле для хранения истории всех проверенных выражений */
-    public final static Stack<BracketChecker> _EXPRESSIONS = new Stack<>();
+    public final static Stack<String> _EXPRESSIONS = new Stack<>();
 
     /**
      Конструктор по умолчанию
@@ -37,8 +37,7 @@ public abstract class BracketChecker {
         if (expression == null || expression.trim().isEmpty())
             return "Выражение не может быть пустым";
 
-        BracketChecker bc = new BracketChecker(expression);
-        _EXPRESSIONS.add(bc);
+        _EXPRESSIONS.add(expression);
         return "Выражение успешно добавлено";
     }
 
@@ -96,16 +95,14 @@ public abstract class BracketChecker {
             return "История проверок пуста! ";
 
         StringBuilder sb = new StringBuilder("История проверок: \n");
-
-        StackIterator<BracketChecker> iterator = new StackIterator<>(_EXPRESSIONS);
         int counter = 1;
 
-        while (!iterator.empty()) {
-            BracketChecker checker = iterator.pop();
+        for (String expr : _EXPRESSIONS) {
+            BracketChecker checker = new BracketChecker(expr) {};
             String result = checker.checkBrackets();
 
             sb.append("Проверка ").append(counter).append(":\n")
-                    .append("Выражение: ").append(checker.getExpression())
+                    .append("Выражение: ").append(expr)
                     .append("\nРезультат: ").append(result)
                     .append("\n---\n");
             counter++;
