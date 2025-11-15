@@ -9,11 +9,6 @@ public class StackIterator<T> extends Stack<T> {
     /** Поле, хранящее объект-итератор для обхода по коллекции*/
     private Iterator<T> _iterator;
 
-    /** Конструктор принимает стек и создает итератор для него */
-    public StackIterator(Stack<T> stack) {
-        this._iterator = stack.iterator();
-    }
-
     /** Возвращает следующий элемент в итерации */
     @Override
     public T pop() {
