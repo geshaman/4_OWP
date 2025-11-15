@@ -1,18 +1,28 @@
 import java.util.Stack;
-import  java.util.Iterator;
+import java.util.Iterator;
 
-public class StackIterator<T> {
+/**
+ * Класс итератор для стека
+ * @param <T> тип элементов в стеке
+ */
+public class StackIterator<T> extends Stack<T> {
+    /** Поле, хранящее объект-итератор для обхода по коллекции*/
     private Iterator<T> _iterator;
 
+    /** Конструктор принимает стек и создает итератор для него */
     public StackIterator(Stack<T> stack) {
         this._iterator = stack.iterator();
     }
 
-    public T nextElement() {
-        return  _iterator.next();
+    /** Возвращает следующий элемент в итерации */
+    @Override
+    public T pop() {
+        return _iterator.next();
     }
 
-    public boolean hasNextElement() {
-        return _iterator.hasNext();
+    /** Проверяет, есть ли еще элементы для итерации */
+    @Override
+    public boolean empty() {
+        return !_iterator.hasNext();
     }
 }

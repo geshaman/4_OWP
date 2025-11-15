@@ -27,7 +27,7 @@ public class UI {
      * Меню приложения
      */
     private void menu() {
-        System.out.println("\nВыберите действие: ");
+        System.out.println("Выберите действие: ");
         System.out.println("1. Проверить новое выражение");
         System.out.println("2. Показать историю проверок");
         System.out.println("3. Сохранить историю в файл");
