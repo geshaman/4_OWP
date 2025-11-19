@@ -77,8 +77,7 @@ public class UI {
 
         if (message.equals("Выражение успешно добавлено")) {
             if (!BracketChecker._EXPRESSIONS.isEmpty()) {
-                BracketChecker tempChecker = new BracketChecker(expression) {};
-                String result = tempChecker.checkBrackets();
+                String result = BracketChecker.checkBrackets(expression);
                 System.out.println("Результат проверки: " + result);
             }
         }
