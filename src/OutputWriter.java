@@ -22,14 +22,4 @@ public abstract class OutputWriter {
         }
     }
 
-    /**
-     * Метод проверки существования файла
-     * @param filename имя файла
-     * @return true - если существует, false - в противном случае
-     */
-    public static boolean isFileExist(String filename) {
-        File f = new File(filename);
-        return f.exists();
-    }
-
 }
