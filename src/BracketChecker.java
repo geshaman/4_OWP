@@ -10,25 +10,6 @@ public abstract class BracketChecker {
     public final static Stack<String> _EXPRESSIONS = new Stack<>();
 
     /**
-     Конструктор по умолчанию
-     */
-    public BracketChecker() {
-        this._expression = "";
-    }
-
-    /**
-     Конструктор с параметром выражения
-     */
-    public BracketChecker(String expression) {
-        this._expression = expression;
-    }
-
-    /** Геттер для выражения */
-    public String getExpression() {
-        return this._expression;
-    }
-
-    /**
      * Статический метод для добавления нового выражения в историю
      * @param expression выражение для проверки
      * @return сообщение о результате операции
@@ -45,11 +26,11 @@ public abstract class BracketChecker {
      * Проверяет корректность расстановки скобок в выражении
      * @return сообщение о результате проверки
      */
-    public String checkBrackets() {
+    public static String checkBrackets(String expression) {
         Stack<Character> bracketStack = new Stack<>();
 
-        for (int i = 0; i < _expression.length(); i++) {
-            char c = _expression.charAt(i);
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
 
             if (c == '{' || c == '(' || c == '[') {
                 bracketStack.push(c);
@@ -80,7 +61,7 @@ public abstract class BracketChecker {
      * @param close закрывающая скобка
      * @return true если скобки парные, false в противном случае
      */
-    private boolean isMatchingPair(char open, char close) {
+    private static boolean isMatchingPair(char open, char close) {
         return (open == '(' && close == ')') ||
                 (open == '{' && close == '}') ||
                 (open == '[' && close == ']');
@@ -98,8 +79,7 @@ public abstract class BracketChecker {
         int counter = 1;
 
         for (String expr : _EXPRESSIONS) {
-            BracketChecker checker = new BracketChecker(expr) {};
-            String result = checker.checkBrackets();
+            String result = checkBrackets(expr);
 
             sb.append("Проверка ").append(counter).append(":\n")
                     .append("Выражение: ").append(expr)
