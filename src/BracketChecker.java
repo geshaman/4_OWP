@@ -4,10 +4,8 @@ import java.util.Stack;
  * Класс для проверки корректности расстановки скобок в выражении
  */
 public abstract class BracketChecker {
-    private String _expression;
-
     /** Статическое поле для хранения истории всех проверенных выражений */
-    public final static Stack<String> _EXPRESSIONS = new Stack<>();
+    public final static StackIterator<String> _EXPRESSIONS = new StackIterator<>();
 
     /**
      * Статический метод для добавления нового выражения в историю
@@ -78,7 +76,10 @@ public abstract class BracketChecker {
         StringBuilder sb = new StringBuilder("История проверок: \n");
         int counter = 1;
 
-        for (String expr : _EXPRESSIONS) {
+        _EXPRESSIONS.initIterator();
+
+        while (!_EXPRESSIONS.empty()) {
+            String expr = _EXPRESSIONS.pop();
             String result = checkBrackets(expr);
 
             sb.append("Проверка ").append(counter).append(":\n")
@@ -87,6 +88,7 @@ public abstract class BracketChecker {
                     .append("\n---\n");
             counter++;
         }
+
         return sb.toString();
     }
 }
