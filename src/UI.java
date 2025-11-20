@@ -64,6 +64,7 @@ public class UI {
             choose = _SC.nextLine();
         }
         System.out.println("Вы вышли из программы!");
+        _SC.close();
     }
 
     /**
